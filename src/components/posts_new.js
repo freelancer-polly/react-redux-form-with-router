@@ -63,7 +63,7 @@ function validate(values){
     }
 
     if(!values.categories) {
-        errors.tags = "Enter some categories!";
+        errors.categories = "Enter some categories!";
     }
 
     if(!values.categories) {
