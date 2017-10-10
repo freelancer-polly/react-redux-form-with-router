@@ -3,9 +3,14 @@ import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
     renderField(field){
+        const { meta } = field;
+        const className = `form-group ${meta.touched && meta.error ? 'has-danger': ''}`;
         return (
-            <div className="form-group">
-                <label htmlFor={field.id}>{field.label}</label>
+            <div className={className}>
+                <small className="form-text text-muted text-danger">
+                {meta.touched ? meta.error: ''}
+                </small>
+                <label htmlFor={field.id}>{field.label}</label>                
                 <input
                     type="text"
                     className="form-control" 
@@ -17,9 +22,15 @@ class PostsNew extends Component {
         );
     }
 
+    onSubmit(values){
+        // console.log(values);
+    }
+
     render() {
+        const { handleSubmit } = this.props;
+
         return (
-            <form>
+            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                 <Field 
                     name="title" 
                     component={this.renderField}
@@ -27,7 +38,7 @@ class PostsNew extends Component {
                     id="postTitle"
                 />
                 <Field 
-                    name="tags" 
+                    name="categories" 
                     component={this.renderField}
                     label="Categories"
                     id="postCategories"
@@ -44,6 +55,25 @@ class PostsNew extends Component {
     }
 }
 
+function validate(values){
+    const errors = {};
+
+    if(!values.title) {
+        errors.title = "Enter a title!";
+    }
+
+    if(!values.categories) {
+        errors.tags = "Enter some categories!";
+    }
+
+    if(!values.categories) {
+        errors.content = "Enter some content please!";
+    }
+
+    return errors;
+}
+
 export default reduxForm({
+    validate,
     form: 'PostsNewForm'
 })(PostsNew);
