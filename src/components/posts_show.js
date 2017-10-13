@@ -33,8 +33,8 @@ class PostsShow extends Component {
                 <p><strong>Categories:</strong> {post.categories}</p>
                 <p>{post.content}</p>
                 <button 
-                className="btn btn-danger"
-                onClick={this.onDeleteClick.bind(this)}
+                    className="btn btn-danger"
+                    onClick={this.onDeleteClick.bind(this)}
                 >
                     Delete this post
                 </button>
